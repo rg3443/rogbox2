@@ -18,37 +18,46 @@ using namespace std;
 
 #include "../CWorld/GWorld.h"
 #include "../CWorld/CWorld.h"
+#include "../CWorld/CPerson.h"
+#include "../CRuler/CRuler.h"
 
-class CNPC;
+#include "../Creatures/CPawn.h"
 
-//  CONTAIN CREATURES ON THE LEVEL
-struct SCreatures_list {
-    vector<CEnemy> enemy_list;
-    vector<CNPC*> npc_list;
-    void CreateEnemy(CEnemy* enemy_to_copy);
-    void CreateNPC(CNPC* npc_to_copy);
-};
 
 class CLevel : public CBaseModelObject {
 public:
     CLevel( ) {}
     CLevel( CLocation * new_current_location,CPlayer * player );
-    void init(CPlayer * player);
-	void fill_with_location(CLocation * location);
+    void Init(CPlayer * player,CLocation * location,int comedir);
+
+    int GetPlayerPawnPosX() { return playerPawn.get_x(); }
+    int GetPlayerPawnPosY() { return playerPawn.get_y(); }
+
+    CLocation * GetLocation() { return currentLocation; }
+
+
 
 
     void __console_tile_ground_show( );
     void __console_tile_object_show( );
 
-    CMap* get_map() { return &map_field; }
-
     void CreateCreature(CEnemy* enemy_to_copy, cords pos);
-    SCreatures_list* GetCreatureList() { return &creature_list; }
+   // SCreatures_list* GetCreatureList() { return &creature_list; }
+
+
+    int GetPersonPawnSize() { return personPawnList.size(); }
+    int GetEnemyPawnSize() { return wenemyPawnList.size(); }
+    CPersonPawn* GetPersonPawn(int id) { return &personPawnList[id]; }
+    CEnemyPawn* GetEnemyPawn(int id) { return &wenemyPawnList[id]; }
 protected:
-    CMap map_field;
-    SCreatures_list creature_list;
+    //CMap map_field;
+    vector<CPersonPawn> personPawnList;
+    vector<CEnemyPawn> wenemyPawnList;
+    CLocation * currentLocation;
+    CPlayerPawn playerPawn;
     CPlayer * player;
-    CEnemy_list eternal_enemy_list;
+
+    CEnemy_list possibeWildEnemyList;
 };
 
 #endif // CLEVEL_H_INCLUDED

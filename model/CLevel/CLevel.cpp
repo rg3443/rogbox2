@@ -2,33 +2,42 @@
 
 CLevel::CLevel( CLocation * new_current_location,CPlayer * player )
 {
-    this->init(player);
+   // this->init(player);
     for(int y=0;y<new_current_location->GetH();y++)
     {
         for(int x=0;x<new_current_location->GetW();x++)
         {
-                    
-        }        
+
+        }
     }
 }
 
-void CLevel::init( CPlayer * player )
+void CLevel::Init( CPlayer * player,CLocation * location,int comedir)
 {
-    map_field.init(DEFFAULT,100,100);
-    eternal_enemy_list.init();
-    creature_list.CreateEnemy(eternal_enemy_list.get_enemy_by_id(0));
-    creature_list.enemy_list[0].set_coordiantes_on_current_level(cords(0,2));
+    possibeWildEnemyList.init();
     this->player = player;
-}
-
-void CLevel::fill_with_location(CLocation * location)
-{
-	// copy location data to this->level data
-	map_field.fill_with_location( location );
+    playerPawn.Init(player,comedir);
+    currentLocation = location;
+    // INIT PERSON PESHKI
+    vector<int> actingPersonList = currentLocation->GetActorsId();
+    personPawnList.resize( actingPersonList.size() );
+    for(int persID=0;persID<actingPersonList.size();persID++)
+    {
+        personPawnList[persID].Init( currentLocation->GetPerson(actingPersonList[persID]) );
+    }
+    //  INIT wild ENEMY PESHKI
+    int wildEnemyAmm = currentLocation->GetWildEnemyAmmount();
+    wenemyPawnList.resize( wildEnemyAmm );
+    for(int wenemyID=0;wenemyID<wildEnemyAmm;wenemyID++)
+    {
+        CEnemy* enemyToSPawn = possibeWildEnemyList.get_rand_enemy_by_locatype(currentLocation->GetLocationType());
+        wenemyPawnList[wenemyID].Init(enemyToSPawn); //???????
+    }
 }
 
 void CLevel::__console_tile_ground_show()
 {
+    /*
     cout << "TILEGROUND DATA :\n\n";
     for(int y=0;y<map_field.h_size();y++)
     {
@@ -70,10 +79,6 @@ void CLevel::__console_tile_ground_show()
         }
         cout << endl;
     }
-}
-
-void SCreatures_list::CreateEnemy(CEnemy* enemy_to_copy)
-{
-    addtovector(&enemy_list,enemy_to_copy);
+    */
 }
 

@@ -12,6 +12,21 @@ using namespace std;
 #include "../pcgGlobal.h"
 #include "CBaseModelObject.h"
 
+template<typename T,class C>
+struct SPair {
+    T obj1;
+    C obj2;
+    SPair() {}
+    SPair(T obj1_, C obj2_) {
+        obj1 = obj1_;
+        obj2 = obj2_;
+    }
+    SPair(const SPair<T,C> & copyS) {
+        obj1 = copyS.obj1;
+        obj2 = copyS.obj2;
+    }
+};
+
 enum ESpecialType {
     NOTHING = 0,
     DEFFAULT = 1,
@@ -41,15 +56,32 @@ enum EEnemyTypes {
     FORESTWOLF = 31
 };
 
+enum EButtonCodes {
+    PAUSE,
+    GAMEPLAY,
+    MAINMENU,
+    AMOVEDOWN,
+    AMOVEUP,
+    AMOVELEFT,
+    AMOVERIGHT,
+    AEXIT,
+    //
+    INVETORY,
+    WORLD,
+    HEALWOUNDS
+};
+
+
 struct SCurrentPlayData {
 	cords currentLocationPos;
+	bool quit;
 	void SetCurrentLocationPos(int locIdX, int locidY) {
 		currentLocationPos.x = locIdX;
 		currentLocationPos.y = locidY;
 	}
 	int GetCurrentLocationX() { return currentLocationPos.x; }
 	int GetCurrentLocationY() { return currentLocationPos.y; }
-	
+
 	void TravelNorth() { currentLocationPos.y--; }
 	void TravelEast() { currentLocationPos.x++; }
 	void TravelWest() { currentLocationPos.x--; }
