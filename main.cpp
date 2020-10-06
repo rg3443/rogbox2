@@ -1,22 +1,9 @@
-#include <cstdlib>
-#include <iostream>
-
-#include <iostream>
-#include <vector>
-#include <string>
 #include <stdio.h>
-#include <ctime>
+#include <iostream>
 using namespace std;
+#include <SDL.h>
 
-#include "presenter/CPresenter.h"
-
-int main(int argc, char *argv[])
+int main(int argc, char* args[])
 {
-    CPresenter program;
-    program.Init();
-    //program.Run();
-    program.Quit();
-    
-    system("PAUSE");
-    return EXIT_SUCCESS;
+    return 0;
 }

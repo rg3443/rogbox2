@@ -10,7 +10,7 @@ using namespace std;
 
 class CRandomNameGenerator {
 public:
-	CRandomNameGenerator() { NAMESIZE = 6; }
+	CRandomNameGenerator() { NAMESIZE = 40; }
 	void init();
 	string get_name();
 	int size() { return NAMESIZE; }

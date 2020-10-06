@@ -4,6 +4,16 @@ void Logys::open(const char * path)
     f_path = path;
 }
 
+void Logys::open(const char * path,int specialcode)
+{
+    special_fout.open(path,ios::app);
+}
+
+void Logys::fast_write(const char * text)
+{
+    special_fout << text;
+}
+
 string Logys::read(int line)
 {
                 try {
@@ -31,6 +41,8 @@ void Logys::write( const char * text )
     }
     catch(const char * eror) { printf(eror); }
 }
+
+
 
 void Logys::clear()
 {

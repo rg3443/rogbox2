@@ -7,6 +7,7 @@ Potok::Potok( int colvo,int star,int ende )
 
 void Potok::setup( int colvo, int star,int ende )
 {
+    iterator = 0;
     nums.resize(colvo);
     nums6.resize(colvo);
     r_ch6.resize(colvo);
@@ -38,7 +39,7 @@ void Potok::setup( int colvo, int star,int ende )
 
     //show();
     shuffle();
-    //show();
+    show();
 
 }
 
@@ -68,7 +69,7 @@ int Potok::get_next(const char* type)
 int Potok::get_next()
 {
     if(iterator>=nums.size()) { iterator=0; return nums[ nums.size()-1 ]; }
-    else return nums6[ iterator-1 ][ r_ch6[iterator-1] ];    
+    iterator++;
 }
 
 void Potok::shuffle()

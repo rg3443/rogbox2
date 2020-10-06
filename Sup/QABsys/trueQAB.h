@@ -6,8 +6,6 @@
 #include <stdio.h>
 using namespace std;
 #include "../../pcgGlobal.h"
-#include "SDL.h"
-#include "SDL_ttf.h"
 #include "../Logs/ScreenSaver/CScreenSaver.h"
 
 //#include "../../Model/Player.h"
@@ -21,7 +19,7 @@ const int WINDOW_RESIZE_VALUE = 30;
 
 class QAB {
 public:
-    QAB() {renderer = 0; window = 0; }
+    QAB() {  }
     void setup( );
 
     void insert_ms(CMenu_sys * ms) { this->ms = ms; }
@@ -33,13 +31,7 @@ public:
     void set_gameplay(bool stat) { gameplay = stat; }
     void set_plrpos(cords pos) { plrpos = pos; }
 
-    SDL_Renderer * get_rnd() { return renderer; }
-    SDL_Window * get_wnd() { return window; }
-    SDL_Window ** get_etwnd() { return &window; }
-    SDL_Renderer ** get_etrnd() { return eternal_renderer; }
-    SDL_Surface** get_wndsrf() { return &wnd_surface; }
     CWorld * get_wrd() { return world; }
-    TTF_Font * get_sans() { return Sans; }
     CMenu_sys * get_ms() { return ms; }
     CObjectList * get_objlist() { return objlist; }
     CModel * get_model() { return model; }
@@ -52,23 +44,12 @@ public:
     int* get_gid() { return &global_object_id_counter; }
     cords* get_plrpos() { return &plrpos; }
 
-    void quit_prog() { SDL_DestroyWindow(window); SDL_Quit(); }
-
-    void resize_window(int nscw,int nsch);
-
 protected:
-    SDL_Renderer ** eternal_renderer;
-    SDL_Renderer * renderer;
-    SDL_Window * window;
-    SDL_Window ** eternal_window;
     CMenu_sys * ms;
     CObjectList * objlist;
     CModel* model;
     CWorld* world;
-    SDL_Surface * wnd_surface;
 
-
-    TTF_Font* Sans;
     bool quit;
     bool gameplay;
     cords plrpos;
